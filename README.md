@@ -13,4 +13,5 @@ el vector, pero por temas de legilibilidad y para que quede más prolijo, lo se 
 lo ideal sería recorrer el vector lo menos posibles. Y el ejercicio 2 de los ejercicios adicionales
 de la práctica 4 no lo realice debido a falta de interes.
 
-Ante cualquier duda consultarme y si hay algún error o mejor forma de resolver, agradecería que me avisen. Saludos!
+Ante cualquier duda consultarme, quizá pueda explicar algún tema o despejar alguna duda. El fijarse ejercicios de otras personas no sirve para aprender.
+Y si hay algún error o mejor forma de resolver, agradecería el aviso :D. Saludos!
