@@ -26,12 +26,12 @@ procedure preguntas (var r: REG_compu);
   begin
     with r do
       begin
-        write ('Codigo de computadora: '); readln(cod);
+        cod:= random(32767) + 1;
         if (cod <> -1) then
           begin
-            write ('Version de Ubuntu: '); readln(version);
-            write ('Cantidad de paquetes instalados: '); readln(paquetes);
-            write ('Cantidad de cuentas de usuario: '); readln(cuentas);
+            version:= random(3000) + 1000;
+            paquetes:= random(100) + 20;
+            cuentas:= random(10) + 1;
           end;
       end;
   end;
