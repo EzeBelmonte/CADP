@@ -18,7 +18,6 @@ type
   str30 = string[30];
 
   REG_persona = record
-    cod: (1: drama, 2: romántico, 3: acción, 4: suspenso, 5: terror)
     dni,edad,cod: integer;
     apellido,nombre: str30;
   end;
