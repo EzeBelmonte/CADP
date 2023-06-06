@@ -45,7 +45,7 @@ type
   vecCamion = array [1..dimF] of REG_camion;  
 
 // ================ CARGA LISTA Y VECTOR
-procedure crearLista(var L: Lista; r: REG_viaje);
+{procedure crearLista(var L: Lista; r: REG_viaje);
   var
     nue: Lista;
   begin
@@ -53,6 +53,33 @@ procedure crearLista(var L: Lista; r: REG_viaje);
     nue^.dato:= r;
     nue^.sig:= L;
     L:= nue;
+  end;}
+procedure crearLista (var L: Lista; r: REG_viaje);
+  var
+    nue,ant,act: Lista;
+  begin
+    New(nue);
+    nue^.dato:= r;
+    nue^.sig:= nil;
+
+    if (L = nil) then
+      L:= nue
+    else
+      begin
+        ant:= L;
+        act:= L;
+        while (act <> nil) and (act^.dato.codCamion < r.codCamion) do
+          begin
+            ant:= act;
+            act:= act^.sig;
+          end;
+        
+        if (ant = act) then
+          L:= nue
+        else
+          ant^.sig:= nue;
+        nue^.sig:= act;
+      end;
   end;
 
 procedure preguntas (var r: REG_viaje);
@@ -110,36 +137,43 @@ function impares (dni: integer): boolean;
 
 procedure incisos (L: Lista; v: vecCamion);
   var
-    kmMenos,kmMas: real;
+    kmMenos,kmMas,kmSuma: real;
     patMenos,patMas: str10;
-    cantViajes: integer;
+    cantViajes,codAux: integer;
   begin
     kmMenos:= 32767;
     kmMas:= 0;
     cantViajes:= 0;
     while (L <> nil) do
       begin
-        //Punto 1
-        if (kmMenos > L^.dato.distancia) then
+        kmSuma:= 0;
+        codAux:= L^.dato.codCamion;
+        while (L <> nil) and (codAux = L^.dato.codCamion) do
           begin
-            kmMenos:= L^.dato.distancia;
-            patMenos:= v[L^.dato.codCamion].patente;
-          end;
-        if (kmMas < L^.dato.distancia) then
-          begin
-            kmMas:= L^.dato.distancia;
-            patMas:= v[L^.dato.codCamion].patente;
+            //Punto 1
+            kmSuma:= kmSuma + L^.dato.distancia;
+            //Punto 2
+            if (v[L^.dato.codCamion].capacidad > 30.5) and ((2023 - L^.dato.anioViaje) > 5) then
+              cantViajes:= cantViajes + 1;
+            
+            //Punto 3
+            if (impares(L^.dato.dni)) then
+              writeln ('Codigo del viaje realizados por chofer con DNI con dig impares: ',L^.dato.cod,'.');
+
+            L:= L^.sig;
           end;
 
-        //Punto 2
-        if (v[L^.dato.codCamion].capacidad > 30.5) and ((2023 - L^.dato.anioViaje) > 5) then
-          cantViajes:= cantViajes + 1;
-        
-        //Punto 3
-        if (impares(L^.dato.dni)) then
-          writeln ('Codigo del viaje realizados por chofer con DNI con dig impares: ',L^.dato.cod,'.');
-        
-        L:= L^.sig;
+        //Punto 1
+        if (kmMenos > kmSuma) then
+          begin
+            kmMenos:= kmSuma;
+            patMenos:= v[codAux].patente;
+          end;
+        if (kmMas < kmSuma) then
+          begin
+            kmMas:= kmSuma;
+            patMas:= v[codAux].patente;
+          end;
       end;
     
     writeln ('La patente del camion que mas km recorridos posee es: ',patMas,' y la patente del camion que menos km recorridos posee es: ',patMenos,'.');
