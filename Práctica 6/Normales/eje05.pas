@@ -60,9 +60,9 @@ procedure cargarLista(var l: Lista);
 // ================ CARGA LISTA
 
 // ==== INCISOS A
-procedure incisoA (L: Lista; var cant, total: integer);
+procedure incisoA (r: REG_producto; var cant, total: integer);
   begin
-    if (L^.dato.stockAct < L^.dato.stockMin) then
+    if (r.stockAct < r.stockMin) then
       cant:= cant + 1;
     total:= total + 1;
   end;
@@ -116,7 +116,7 @@ procedure incisos (L: Lista);
     min2:= min1;
     while (L <> nil) do
       begin
-        incisoA(L,cant,total);
+        incisoA(L^.dato,cant,total);
         incisoB(L^.dato);
         incisoC(L^.dato,min1,min2,codMin1,codMin2);
         L:= L^.sig;
