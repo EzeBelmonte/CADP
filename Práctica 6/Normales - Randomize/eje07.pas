@@ -79,34 +79,14 @@ function incisoA (r: REG_esa): boolean;
 // ================ INCISO A
 
 // ================ INCISO B
-procedure crearListaCumple (var L: lista; r: REG_esa);
-  var
-    aux: lista;
-  begin
-    New(aux);
-    aux^.dato:= r;
-    aux^.sig:= L;
-    L:= aux;
-  end;
-
-procedure crearListaNoCumple (var L: lista; r: REG_esa);
-  var
-    aux: lista;
-  begin
-    New(aux);
-    aux^.dato:= r;
-    aux^.sig:= L;
-    L:= aux;
-  end;
-
 procedure incisoB (L: lista; var listaCumple,listaNoCumple: lista);
   begin
     while (L <> nil) do
       begin
         if (incisoA(L^.dato)) then
-          crearListaCumple(listaCumple,L^.dato)
+          crearLista(listaCumple,L^.dato)
         else
-          crearListaNoCumple(listaNoCumple,L^.dato);
+          crearLista(listaNoCumple,L^.dato);
       end;
   end;
 // ================ INCISO B
